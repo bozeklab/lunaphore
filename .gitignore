@@ -87,3 +87,8 @@ target/
 
 # Mypy cache
 .mypy_cache/
+
+# my own stuff
+*.npy
+*.pickle
+*.pkl
