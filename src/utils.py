@@ -1,5 +1,6 @@
 import os
 import re
+from time import time
 
 
 def flatten(S):
@@ -8,6 +9,11 @@ def flatten(S):
     if isinstance(S[0], list):
         return flatten(S[0]) + flatten(S[1:])
     return S[:1] + flatten(S[1:])
+
+
+
+def time_diff(reference_time, decimals=1):
+    return round(time() - reference_time, decimals)
 
 
 
@@ -56,3 +62,12 @@ def slide_cycle_dot(filename, coords=False):
         return slide, cycle, dot, x, y
 
     return slide, cycle, dot
+
+
+def unique(list_):
+    return sorted(list(set(list_)))
+
+
+
+def get_id(f):
+    return re.sub('^.*A40.([0-9]{4}).*$|^.*_([0-9]{4})_.*', '\\1', f)
