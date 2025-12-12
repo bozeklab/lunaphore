@@ -1,5 +1,6 @@
 import os
 import re
+from time import time
 
 
 def flatten(S):
@@ -11,12 +12,21 @@ def flatten(S):
 
 
 
+def time_diff(reference_time, decimals=1):
+    return round(time() - reference_time, decimals)
+
+
+
 def get_base_dir():
     """
     hardcoded list of where the files could be. This will become obsolete as we dive deeper into cookiecutter
     """
     if os.path.exists('/projects/ag-bozek/lunaphore/'):
         base_dir = '/projects/ag-bozek/lunaphore/'
+    elif os.path.exists('/home/sugliano/lunaphore'):
+        base_dir = '/home/sugliano/lunaphore'
+    elif os.path.exists('/data/sugliano/lunaphore'):
+        base_dir = '/data/sugliano/lunaphore'
     else:
         raise FileNotFoundError('The script is not running in one of the usual systems! Check base_dir')
     return base_dir
@@ -56,3 +66,12 @@ def slide_cycle_dot(filename, coords=False):
         return slide, cycle, dot, x, y
 
     return slide, cycle, dot
+
+
+def unique(list_):
+    return sorted(list(set(list_)))
+
+
+
+def get_id(f):
+    return re.sub('^.*A40.([0-9]{4}).*$|^.*_([0-9]{4})_.*', '\\1', f)
