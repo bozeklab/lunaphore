@@ -8,7 +8,7 @@ class metadata:
 # updated for cookiecutter use... good luck to us
 
     def __init__(self):
-        self.base_dir = get_base_dir()
+        self.cookiecutter_dir = '/projects/ag-bozek/sugliano/lunaphore'
         self.subfolders = {
             'images'      : 'data/raw',
             'bg_removed'  : 'data/interim/bg_removed',
@@ -17,33 +17,14 @@ class metadata:
             'regionprops' : 'data/interim/regionprops'
         }
 
-        self.folders = {k:os.path.join(self.base_dir, v) for k,v in self.subfolders.items()}
-
+        self.folders = {
+            k:os.path.join(self.cookiecutter_dir, v) 
+            for k,v in self.subfolders.items()
+        }
         
         for f in self.folders.values():
-            Path(f).mkdir(exist_ok=True, parents=True)
-
-        
-        # self.markers = {
-        #     # 'DAPI1':'DAPI',
-        #     # 'tritc':'TRITC AF',
-        #     # 'cy5'  :'Cy5 AF',
-        #     'DAPI2':'DAPI', 
-        #     'ecad' :'E-Cadherin 36E',
-        #     'c-myc':'c-Myc (Y69)',
-        #     'DAPI3':'DAPI', 
-        #     'vim'  :'Vimentin V9',
-        #     'gfp'  :'GFP D5.1',
-        #     'DAPI4':'DAPI', 
-        #     'ki67' :'Ki67 MIB-1',
-        #     'ccasp':'Cleaved Caspase3 D175',
-        #     'DAPI5':'DAPI', 
-        #     'ck'   :'CK AE1/AE3',
-        #     'slug' :'SLUG C19G7',
-        #     # 'DAPI6':'DAPI',
-        #     # 'fibro':'Fibronectin E5H6X'
-
-        # }
+            if not os.path.exists(f):
+                Path(f).mkdir(parents=True)
 
         self.markers = {
             'DAPI'  : 'DAPI',
@@ -74,4 +55,18 @@ class metadata:
             'ck'    : 'tritc',
             'fibro' : 'cy5'
         }
-            
+
+        self.classification_colormap = {
+            'triple_negative'   : '#333333',
+            'e-cad_positive'    : '#A72C09',
+            'vimentin_positive' : '#3A76DB',
+            'double_positive'   : '#FF00FC'
+        }
+
+        self.classification_colormap_alt = {
+            'triple_negative'   : '#333333',
+            'e-cad_positive'    : '#2C72B8',
+            'vimentin_positive' : '#2FBD45',
+            'double_positive'   : '#32E5ED'
+        }
+
